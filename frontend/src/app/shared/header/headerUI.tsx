@@ -1,0 +1,7 @@
+export const HeaderUI = ({children}:{children:React.ReactNode})=>{
+    return(
+        <header className="w-full fixed h-fit gap-2 flex flex-col border-b-2 border-black justify-between p-2 items-center bg-white border-solid rounded-b-xl z-10">
+           {children}
+        </header>
+    )
+}
