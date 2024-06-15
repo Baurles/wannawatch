@@ -1,9 +1,9 @@
-import { Git } from "@/app/shared/buttons/git"
-import { Telegram } from "@/app/shared/buttons/telegram"
-import { HeaderUI } from "@/app/shared/header"
-import { HeaderButtons } from "@/app/shared/headerButtons"
-import { Logo } from "@/app/shared/logo"
-import { Search } from "@/app/shared/search"
+import { Git } from "@/shared/buttons/git"
+import { Telegram } from "@/shared/buttons/telegram"
+import { HeaderUI } from "@/shared/header"
+import { HeaderButtons } from "@/shared/headerButtons"
+import { Logo } from "@/shared/logo"
+import { Search } from "@/shared/search"
 
 export const Header = ({children}:{children:React.ReactNode}) =>{
     return(

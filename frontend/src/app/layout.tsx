@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 
 import "./globals.css";
 import { Header } from "@/widgets/header";
-import { SearchFrame } from "./shared/searchFrame";
+import { SearchFrame } from "@/shared/searchFrame";
 import { Category } from "@/widgets/category";
 import { Country } from "@/widgets/country";
 import { Years } from "@/widgets/years";
@@ -20,7 +20,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className="flex flex-col items-center w-screen h-screen">
+      <body className="flex  flex-col items-center w-screen h-screen">
       <Header>
         <SearchFrame>
             <Category/>
