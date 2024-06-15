@@ -1,6 +1,7 @@
-version: "3.5"
+version: "3.8"
 services:
   db_auth:
+    restart: always
     container_name: db_auth
     ports:
       - "5432:5432"
@@ -10,6 +11,7 @@ services:
     image: postgres:alpine3.20
 
   db_films:
+    restart: always
     container_name: db_films
     ports:
       - "5433:5432"
@@ -28,10 +30,39 @@ services:
     image: postgres:alpine3.20
 
   frontend:
+    build:
+      context: ./frontend
     container_name: frontend
     ports:
-      - "80:80"
+      - "3000:3000"
+    stdin_open: true
     environment:
-      - POSTGRES_PASSWORD=root
-      - POSTGRES_USER=admin
+      - WEB_PASSWORD=root
+      - WEB_USER=admin
     image: node
+
+  backendCore:
+    build:
+      context: ./backendCore
+    container_name: backendCore
+    ports:
+      - "8000:8000"
+    environment:
+      - BACK_PASSWORD=root
+      - BACK_USER=admin
+    depends_on:
+      - db_auth
+      - db_films
+    image: golang
+
+  backendAI:
+    build:
+      context: ./backendAI
+    container_name: backendAI
+    command: ["python", "main.py"]
+    ports:
+      - "5000:5000"
+    environment:
+      - AI_PASSWORD=root
+      - AI_USER=admin
+    image: python
