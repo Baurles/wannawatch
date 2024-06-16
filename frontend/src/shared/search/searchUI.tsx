@@ -8,12 +8,18 @@ import {
 import MainStore from "@/store/store";
 import { useEffect, useRef } from "react";
 import { observer } from "mobx-react";
-import { handleSearchProps } from "@/features/handleSearch/handleSearch";
+
 
 export const SearchUI = observer(() => {
   const Store = MainStore;
   const ref = useRef<HTMLInputElement>(null);
 
+  const  handlePressEnter = (e:KeyboardEvent) =>{
+    if(e.code == "Enter"){
+      Store.setSearchData("Логика поиска")
+    }
+  }
+  
   useEffect(() => {
     let handler = (e: MouseEvent) => {
       const target = e.target as HTMLElement;
@@ -27,10 +33,13 @@ export const SearchUI = observer(() => {
       }
     };
     document.addEventListener("mousedown", handler);
+    document.addEventListener("keydown",handlePressEnter)
     return () => {
       document.removeEventListener("mousedown", handler);
+      document.removeEventListener("keydown",handlePressEnter)
     };
   }, []);
+
 
   const handleClick = (value: boolean) => {
     if (Store.searchSwitch) {

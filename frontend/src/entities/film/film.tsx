@@ -1,6 +1,7 @@
 import { FilmCard } from "@/shared/filmCard";
 import Image from "next/image";
 
+
 export const Film = ({
   image,
   filmName,

@@ -8,6 +8,8 @@ class Store {
   modalCountries = false;
   modalYears = false;
   modalButtonClicked = false;
+  chooseFilm = true
+  searchData = ""
 
   constructor() {
     makeAutoObservable(this);
@@ -27,6 +29,14 @@ class Store {
   }
   setModalButtonClicked(value: boolean) {
     this.modalButtonClicked = value;
+  }
+  setChooseFilm(value:boolean){
+    this.chooseFilm = value
+    console.log("kek")
+  }
+  setSearchData(value:string){
+    this.searchData = value
+    console.log(this.searchData)
   }
 }
 

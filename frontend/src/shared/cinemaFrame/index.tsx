@@ -1,0 +1,1 @@
+export { CinemaFrame } from "./cinemaFrame";
