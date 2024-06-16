@@ -1,10 +1,18 @@
-import { AnimationSequence } from "framer-motion"
+"use client";
+import MainStore from "@/store/store";
+import { AnimationSequence } from "framer-motion";
 
-export const ModalSequence = (id:string, arrowId:string,deg:number) => {
-    const sequence:AnimationSequence = [
-        [`#${id}`,{opacity:1},{duration:0.5}],
-        [`#${arrowId}`,{rotate:deg},{duration:0.5,at:"<"}]
-    ]
-    
-    return sequence
-}
+const Store = MainStore;
+
+export const ModalSequence = (
+  id: string,
+  arrowId: string,
+  deg: number,
+  display: string
+) => {
+  const sequence: AnimationSequence = [
+    [`#${arrowId}`, { rotate: deg }, { duration: 0.3 }],
+    [`#${id}`, { display: `${display}` }, { at: "<" }],
+  ];
+  return sequence;
+};
