@@ -8,6 +8,7 @@ services:
     environment:
       - POSTGRES_PASSWORD=root
       - POSTGRES_USER=admin
+      - POSTGRES_DB:postgres
     image: postgres:alpine3.20
 
   db_films:
@@ -48,11 +49,9 @@ services:
     ports:
       - "8000:8000"
     environment:
-      - BACK_PASSWORD=root
-      - BACK_USER=admin
+      - DATABASE_URL='postgres://admin:root@db:5432/postgres?sslmode=disable'
     depends_on:
       - db_auth
-      - db_films
     image: golang
 
   backendAI:
