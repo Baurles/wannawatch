@@ -54,6 +54,7 @@ services:
       - DATABASE_URL=postgres://admin:root@db_auth:5432/postgres?sslmode=disable
     depends_on:
       - db_auth
+      - db_films
     image: golang
 
   backendAI:
