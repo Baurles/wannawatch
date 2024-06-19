@@ -1,1 +1,3 @@
-export { DropDownModalButton } from "./dropdownModalButton";
+import { DropDownModalButton } from "./dropdownModalButton";
+
+export { DropDownModalButton };
