@@ -12,30 +12,30 @@ import (
 )
 
 type User struct{
-	Id int `json:"id`
-	Name string `json:"name`
-	Email string `json:"email"`
+	Id int `json:"id"`
+	Name string `json:"name"`
+	Telegram string `json:"telegram"`
 }
 
 func main(){
 	db,err := sql.Open("postgres",os.Getenv("DATABASE_URL"))
-
+	
 	if err !=nil{
 		log.Fatal(err)
 	}
 	defer db.Close()
 
-	_,err = db.Exec("CREATE TABLE IF NOT EXISTS users (id SERIAL PRIMARY KEY, name TEXT, email TEXT)")
+	_,err = db.Exec("CREATE TABLE IF NOT EXISTS users (id SERIAL PRIMARY KEY, name TEXT, telegram TEXT)")
 	if err !=nil{
 		log.Fatal(err)
 	}
 
 	router :=mux.NewRouter()
-	router.HandleFunc("/api/go/users", getUsers(db)).Methods("GET")
-	router.HandleFunc("/api/go/users", createUser(db)).Methods("POST")
-	router.HandleFunc("/api/go/users/{id}", getUser(db)).Methods("GET")
-	router.HandleFunc("/api/go/users/{id}", updateUser(db)).Methods("PUT")
-	router.HandleFunc("/api/go/users/{id}", deleteUser(db)).Methods("DELETE")
+	router.HandleFunc("/api/auth/users", getUsers(db)).Methods("GET")
+	router.HandleFunc("/api/auth/users", createUser(db)).Methods("POST")
+	router.HandleFunc("/api/auth/users/{id}", getUser(db)).Methods("GET")
+	router.HandleFunc("/api/auth/users/{id}", updateUser(db)).Methods("PUT")
+	router.HandleFunc("/api/auth/users/{id}", deleteUser(db)).Methods("DELETE")
 
 	enhancedRouter := enableCORS(jsonContentTypeMiddleware(router))
 
@@ -78,7 +78,7 @@ func getUsers(db *sql.DB) http.HandlerFunc{
 		for rows.Next(){
 			var u User
 
-			if err :=rows.Scan(&u.Id,&u.Name,&u.Email); err !=nil{
+			if err :=rows.Scan(&u.Id,&u.Name,&u.Telegram); err !=nil{
 				log.Fatal(err)
 			}
 			users = append(users,u)
@@ -99,7 +99,7 @@ func getUser(db *sql.DB) http.HandlerFunc{
 
 		var u User
 		
-		err := db.QueryRow("SELECT * FROM users WHERE id = $1",id).Scan(&u.Id,&u.Name,&u.Email)
+		err := db.QueryRow("SELECT * FROM users WHERE id = $1",id).Scan(&u.Id,&u.Name,&u.Telegram)
 		if err !=nil{
 			w.WriteHeader(http.StatusNotFound)
 			return
@@ -114,7 +114,7 @@ func createUser(db *sql.DB) http.HandlerFunc{
 		var u User
 		json.NewDecoder(r.Body).Decode(&u)
 
-		err :=db.QueryRow("INSERT INTO users (name,email) VALUES ($1, $2) RETURNING id",u.Name,u.Email).Scan(&u.Id)
+		err :=db.QueryRow("INSERT INTO users (name,telegram) VALUES ($1, $2) RETURNING id",u.Name,u.Telegram).Scan(&u.Id)
 		if err !=nil{
 			log.Fatal(err)
 		}
@@ -130,13 +130,13 @@ func updateUser(db *sql.DB) http.HandlerFunc{
 		vars :=mux.Vars(r)
 		id :=vars["id"]
 
-		_,err := db.Exec("UPDATE users SET name = $1, email = $2 WHERE id = $3",u.Name,u.Email,u.Id)
+		_,err := db.Exec("UPDATE users SET name = $1, telegram = $2 WHERE id = $3",u.Name,u.Telegram,u.Id)
 		if err !=nil{
 			log.Fatal(err)
 		}
 
 		var updateUser User
-		err = db.QueryRow("SELECT id, name, email FROM users WHERE id = $1", id).Scan(&updateUser.Id,&updateUser.Name,&updateUser.Email)
+		err = db.QueryRow("SELECT id, name, telegram FROM users WHERE id = $1", id).Scan(&updateUser.Id,&updateUser.Name,&updateUser.Telegram)
 		if err !=nil{
 			log.Fatal(err)
 		}
@@ -151,7 +151,7 @@ func deleteUser(db *sql.DB) http.HandlerFunc{
 		id := vars["id"]
 
 		var u User
-		err :=db.QueryRow("SELECT * FROM users WHERE id = $1",id).Scan(&u.Id, &u.Name, &u.Email)
+		err :=db.QueryRow("SELECT * FROM users WHERE id = $1",id).Scan(&u.Id, &u.Name, &u.Telegram)
 
 		if err != nil{
 			w.WriteHeader(http.StatusNotFound)
