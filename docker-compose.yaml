@@ -9,6 +9,8 @@ services:
       - POSTGRES_PASSWORD=root
       - POSTGRES_USER=admin
       - POSTGRES_DB:postgres
+    volumes:
+      - pgdata:/var/lib/postgres/data
     image: postgres:alpine3.20
 
   db_films:
@@ -49,7 +51,7 @@ services:
     ports:
       - "8000:8000"
     environment:
-      - DATABASE_URL='postgres://admin:root@db:5432/postgres?sslmode=disable'
+      - DATABASE_URL=postgres://admin:root@db_auth:5432/postgres?sslmode=disable
     depends_on:
       - db_auth
     image: golang
@@ -65,3 +67,6 @@ services:
       - AI_PASSWORD=root
       - AI_USER=admin
     image: python
+
+volumes:
+  pgdata: {}
