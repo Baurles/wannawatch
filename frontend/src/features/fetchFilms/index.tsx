@@ -1,0 +1,1 @@
+export { handleFecthFilms } from "./fetchFilms";

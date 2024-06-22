@@ -1,0 +1,1 @@
+export { FilmNameFrame } from "./filmNameFrame";

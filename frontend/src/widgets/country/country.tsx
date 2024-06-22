@@ -8,6 +8,7 @@ import MainStore from "@/store/store";
 import { animate } from "framer-motion";
 import { observer } from "mobx-react";
 import { useEffect, useRef } from "react";
+import { handleFetchCountries } from "@/features/handleChooseFilm";
 
 export const Country = observer(() => {
   const Store = MainStore;
@@ -16,6 +17,7 @@ export const Country = observer(() => {
   const arrowId = "arrowCountries";
 
   useEffect(() => {
+    handleFetchCountries();
     let handler = (e: MouseEvent) => {
       const target = e.target as HTMLElement;
 
@@ -56,16 +58,9 @@ export const Country = observer(() => {
 
       <DropDownModal id={id}>
         <DropDownModalList>
-          <DropDownModalButton buttonName="Test" />
-          <DropDownModalButton buttonName="Test" />
-          <DropDownModalButton buttonName="Test" />
-          <DropDownModalButton buttonName="Test" />
-          <DropDownModalButton buttonName="Test" />
-          <DropDownModalButton buttonName="Test" />
-          <DropDownModalButton buttonName="Test" />
-          <DropDownModalButton buttonName="Test" />
-          <DropDownModalButton buttonName="Test" />
-          <DropDownModalButton buttonName="Test" />
+          {Store.countries.map((e, index) => (
+            <DropDownModalButton key={e.id} buttonName={e.name} />
+          ))}
         </DropDownModalList>
       </DropDownModal>
     </section>

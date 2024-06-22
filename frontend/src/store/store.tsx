@@ -1,5 +1,6 @@
 "use client";
 
+import { FilmProps, FilterProps } from "@/shared/types/types";
 import { makeAutoObservable } from "mobx";
 
 class Store {
@@ -8,8 +9,27 @@ class Store {
   modalCountries = false;
   modalYears = false;
   modalButtonClicked = false;
-  chooseFilm = true
-  searchData = ""
+  chooseFilm = false;
+  searchData = "";
+  currentFilmId = 0;
+  currentFilm = {
+    id: 0,
+    name: "",
+    description: "",
+    ImgURL: "",
+    rate: "",
+    country: "",
+    year: "",
+  };
+
+  currentCountry = {
+    id: 0,
+    name: "",
+  };
+
+  countries = [this.currentCountry];
+
+  filmsArray = [this.currentFilm];
 
   constructor() {
     makeAutoObservable(this);
@@ -30,13 +50,25 @@ class Store {
   setModalButtonClicked(value: boolean) {
     this.modalButtonClicked = value;
   }
-  setChooseFilm(value:boolean){
-    this.chooseFilm = value
-    console.log("kek")
+  setChooseFilm(value: boolean) {
+    this.chooseFilm = value;
+    console.log("kek");
   }
-  setSearchData(value:string){
-    this.searchData = value
-    console.log(this.searchData)
+  setSearchData(value: string) {
+    this.searchData = value;
+    console.log(this.searchData);
+  }
+  setFilmsArray(value: FilmProps[]) {
+    this.filmsArray = value;
+  }
+  setCurrentFilmId(id: number) {
+    this.currentFilmId = id;
+  }
+  setCurrentFilm() {
+    this.currentFilm = this.filmsArray[this.currentFilmId - 1];
+  }
+  setCountriesArray(value: FilterProps[]) {
+    this.countries = value;
   }
 }
 

@@ -51,7 +51,8 @@ services:
     ports:
       - "8000:8000"
     environment:
-      - DATABASE_URL=postgres://admin:root@db_auth:5432/postgres?sslmode=disable
+      - DATABASE_URL_AUTH=postgres://admin:root@db_auth:5432/postgres?sslmode=disable
+      - DATABASE_URL_FILMS=postgres://admin:root@db_films:5432/postgres?sslmode=disable
     depends_on:
       - db_auth
       - db_films

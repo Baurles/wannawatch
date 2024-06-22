@@ -1,5 +1,3 @@
 export const Player = () => {
-    return(
-        <div className="w-3/4 h-3/4 bg-black"></div>
-    )
-}
+  return <div className="w-full h-3/4 rounded-xl bg-black"></div>;
+};
