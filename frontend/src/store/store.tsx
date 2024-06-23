@@ -12,25 +12,23 @@ class Store {
   chooseFilm = false;
   searchData = "";
   currentFilmId = 0;
-  currentFilm = {
-    id: 0,
-    name: "",
-    description: "",
-    ImgURL: "",
-    rate: "",
-    country: "",
-    year: "",
-  };
+  currentFilm = {} as FilmProps;
 
-  currentCountry = {
-    id: 0,
-    name: "",
-  };
+  currentCountry = {} as FilmProps;
 
-  countries = [this.currentCountry];
+  currentCategory = {} as FilmProps;
 
-  filmsArray = [this.currentFilm];
+  currentYear = {} as FilmProps;
 
+  years = [] as FilterProps[];
+  categories = [] as FilterProps[];
+
+  countries = [] as FilterProps[];
+
+  filmsArray = [] as FilmProps[];
+
+  filmsScrollPositionStart = 0;
+  filmsScrollPositionEnd = 20;
   constructor() {
     makeAutoObservable(this);
   }
@@ -52,14 +50,13 @@ class Store {
   }
   setChooseFilm(value: boolean) {
     this.chooseFilm = value;
-    console.log("kek");
   }
   setSearchData(value: string) {
     this.searchData = value;
     console.log(this.searchData);
   }
   setFilmsArray(value: FilmProps[]) {
-    this.filmsArray = value;
+    this.filmsArray = this.filmsArray.concat(value);
   }
   setCurrentFilmId(id: number) {
     this.currentFilmId = id;
@@ -69,6 +66,16 @@ class Store {
   }
   setCountriesArray(value: FilterProps[]) {
     this.countries = value;
+  }
+  setCategoriesArray(value: FilterProps[]) {
+    this.categories = value;
+  }
+  setYearsArray(value: FilterProps[]) {
+    this.years = value;
+  }
+  setFilmsScrollPosition(value: number) {
+    this.filmsScrollPositionStart = this.filmsScrollPositionStart + value;
+    this.filmsScrollPositionEnd = this.filmsScrollPositionEnd + value;
   }
 }
 

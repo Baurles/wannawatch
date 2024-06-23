@@ -26,6 +26,7 @@ func Connect(db *sql.DB, err error, dbType string) {
 		if err !=nil{
 			log.Fatal(err)
 		}
+		
 		_,err = db.Exec("CREATE TABLE IF NOT EXISTS country (id SERIAL PRIMARY KEY, country TEXT)")
 		if err !=nil{
 			log.Fatal(err)

@@ -6,7 +6,7 @@ import { Player } from "@/shared/player";
 export const Cinema = ({ children }: { children: React.ReactNode }) => {
   return (
     <CinemaFrame>
-      <div className="w-3/4 h-full">
+      <div className="w-full h-full">
         <Player />
         {children}
       </div>

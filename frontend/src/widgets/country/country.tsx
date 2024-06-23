@@ -8,7 +8,7 @@ import MainStore from "@/store/store";
 import { animate } from "framer-motion";
 import { observer } from "mobx-react";
 import { useEffect, useRef } from "react";
-import { handleFetchCountries } from "@/features/handleChooseFilm";
+import { handleFetchCountries } from "@/features/fetchFilters";
 
 export const Country = observer(() => {
   const Store = MainStore;

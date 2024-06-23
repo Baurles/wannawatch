@@ -8,6 +8,7 @@ import MainStore from "@/store/store";
 import { animate } from "framer-motion";
 import { observer } from "mobx-react";
 import { useEffect, useRef } from "react";
+import { handleFetchCategories } from "@/features/fetchFilters";
 
 export const Category = observer(() => {
   const Store = MainStore;
@@ -16,6 +17,7 @@ export const Category = observer(() => {
   const arrowId = "arrowCategory";
 
   useEffect(() => {
+    handleFetchCategories();
     let handler = (e: MouseEvent) => {
       const target = e.target as HTMLElement;
 
@@ -54,16 +56,9 @@ export const Category = observer(() => {
 
       <DropDownModal id={id}>
         <DropDownModalList>
-          <DropDownModalButton buttonName="Test" />
-          <DropDownModalButton buttonName="Test" />
-          <DropDownModalButton buttonName="Test" />
-          <DropDownModalButton buttonName="Test" />
-          <DropDownModalButton buttonName="Test" />
-          <DropDownModalButton buttonName="Test" />
-          <DropDownModalButton buttonName="Test" />
-          <DropDownModalButton buttonName="Test" />
-          <DropDownModalButton buttonName="Test" />
-          <DropDownModalButton buttonName="Test" />
+          {Store.categories.map((e, index) => (
+            <DropDownModalButton key={e.id} buttonName={e.name} />
+          ))}
         </DropDownModalList>
       </DropDownModal>
     </section>

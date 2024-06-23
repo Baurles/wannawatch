@@ -67,6 +67,35 @@ func GetFilm(db *sql.DB) http.HandlerFunc {
 		json.NewEncoder(w).Encode(f)
 	}
 }
+func GetFilmsRange(db *sql.DB) http.HandlerFunc {
+	return func(w http.ResponseWriter, r *http.Request) {
+		vars := mux.Vars(r)
+		rangefrom := vars["rangefrom"]
+		rangeto := vars["rangeto"]
+		rows, err := db.Query("SELECT * FROM films WHERE id BETWEEN $1 AND $2",rangefrom,rangeto)
+
+		if err != nil {
+			log.Fatal(err)
+		}
+		defer rows.Close()
+
+		films := []types.Film{}
+		for rows.Next() {
+			var f types.Film
+
+			if err := rows.Scan(&f.Id, &f.Name, &f.Description,&f.ImgURL,&f.Rate,&f.Country,&f.Year); err != nil {
+				log.Fatal(err)
+			}
+			films = append(films, f)
+		}
+
+		if err := rows.Err(); err != nil {
+			log.Fatal(err)
+		}
+
+		json.NewEncoder(w).Encode(films)
+	}
+}
 
 func UpdateFilm(db *sql.DB) http.HandlerFunc {
 	return func(w http.ResponseWriter,r *http.Request){

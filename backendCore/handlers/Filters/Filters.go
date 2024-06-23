@@ -6,6 +6,8 @@ import (
 	"encoding/json"
 	"log"
 	"net/http"
+
+	"github.com/gorilla/mux"
 )
 
 func GetFilters(db *sql.DB, variants string) http.HandlerFunc {
@@ -32,5 +34,60 @@ func GetFilters(db *sql.DB, variants string) http.HandlerFunc {
 		}
 
 		json.NewEncoder(w).Encode(filters)
+	}
+}
+
+func CreateFilters(db *sql.DB, variants string) http.HandlerFunc {
+	return func(w http.ResponseWriter, r *http.Request){
+		var f types.Filter
+		json.NewDecoder(r.Body).Decode(&f)
+		
+		err :=db.QueryRow("INSERT INTO "+variants+" (name) VALUES ($1) RETURNING id",f.Name).Scan(&f.Id)
+		if err !=nil{
+			log.Fatal(err)
+		}
+		json.NewEncoder(w).Encode(f)
+	}
+}
+
+func UpdateFilters(db *sql.DB,variants string) http.HandlerFunc {
+	return func(w http.ResponseWriter,r *http.Request){
+		var f types.Filter
+		json.NewDecoder(r.Body).Decode(&f)
+
+		vars :=mux.Vars(r)
+		id :=vars["id"]
+
+		_,err := db.Exec("UPDATE "+variants+" SET name = $1 WHERE id = $2",f.Name,f.Id)
+		
+		if err !=nil{
+			log.Fatal(err)
+		}
+		
+		var updateFilter types.Filter
+		err = db.QueryRow("SELECT id, name FROM "+variants+" WHERE id = $1", id).Scan(&updateFilter.Id,&updateFilter.Name)
+		
+		if err !=nil{
+			log.Fatal(err)
+		}
+		
+		json.NewEncoder(w).Encode(updateFilter)
+	}
+}
+
+func DeleteFilters(db *sql.DB,variants string) http.HandlerFunc{
+	return func(w http.ResponseWriter, r *http.Request){
+		vars := mux.Vars(r)
+		id := vars["id"]
+
+		var f types.Filter
+		err :=db.QueryRow("SELECT * FROM "+variants+" WHERE id = $1", id).Scan(&f.Id, &f.Name)
+
+		if err != nil{
+			w.WriteHeader(http.StatusNotFound)
+			return
+		}
+
+		json.NewEncoder(w).Encode(variants+" deleted")
 	}
 }
