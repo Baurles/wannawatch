@@ -23,13 +23,7 @@ export const Films = observer(() => {
       );
   }, []);
 
-  useEffect(() => {
-    return () =>
-      handleFecthFilms(
-        Store.filmsScrollPositionStart,
-        Store.filmsScrollPositionEnd
-      );
-  }, [Store.filmsScrollPositionStart]);
+  handleFecthFilms(13);
 
   if (!Store.chooseFilm && Store.filmsArray !== null) {
     return (
@@ -52,7 +46,7 @@ export const Films = observer(() => {
     return (
       <Cinema>
         <Recomendations>
-          {/* {Store.filmsArray.map((e, index) => (
+          {Store.filmsArray.map((e, index) => (
             <div className="w-32 h-full" key={index}>
               <Film
                 isClicked={() => Store.setCurrentFilmId(e.id)}
@@ -60,7 +54,7 @@ export const Films = observer(() => {
                 filmName={`${Store.filmsArray[index].name}`}
               />
             </div>
-          ))} */}
+          ))}
         </Recomendations>
       </Cinema>
     );

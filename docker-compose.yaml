@@ -58,16 +58,19 @@ services:
       - db_films
     image: golang
 
-  backendAI:
+  parser:
     build:
-      context: ./backendAI
-    container_name: backendAI
+      context: ./parser
+    container_name: parser
     command: ["python", "main.py"]
     ports:
-      - "5000:5000"
+      - "7000:7000"
     environment:
+      - DATABASE_URL_FILMS=postgres://admin:root@db_films:5432/postgres?sslmode=disable
       - AI_PASSWORD=root
       - AI_USER=admin
+    depends_on:
+      - db_films
     image: python
 
 volumes:

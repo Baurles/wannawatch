@@ -1,5 +1,5 @@
 import { FilmListFrame } from "@/shared/flimList";
-import MainStore from "@/store/store";
+
 import { Films } from "@/widgets/films";
 
 export const MainPage = () => {
