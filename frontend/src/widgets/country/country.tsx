@@ -73,14 +73,18 @@ export const Country = observer(() => {
         <DropDown
           buttonId={buttonId}
           arrowId={arrowId}
-          placeholder="Все страны"
+          placeholder={Store.currentCountry}
         />
       </button>
 
       <DropDownModal id={id}>
         <DropDownModalList>
           {Store.countries.map((e, index) => (
-            <DropDownModalButton key={e.id} buttonName={e.name} />
+            <DropDownModalButton
+              isClicked={() => Store.setChooseCountry(e.name)}
+              key={e.id}
+              buttonName={e.name}
+            />
           ))}
         </DropDownModalList>
       </DropDownModal>

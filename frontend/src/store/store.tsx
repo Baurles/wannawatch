@@ -14,11 +14,11 @@ class Store {
   currentFilmId = 0;
   currentFilm = {} as FilmProps;
 
-  currentCountry = {} as FilmProps;
+  currentCountry = "Все страны";
 
-  currentCategory = {} as FilmProps;
+  currentCategory = "Все жанры";
 
-  currentYear = {} as FilmProps;
+  currentYear = "Все годы";
 
   years = [] as FilterProps[];
   categories = [] as FilterProps[];
@@ -52,6 +52,15 @@ class Store {
   }
   setChooseFilm(value: boolean) {
     this.chooseFilm = value;
+  }
+  setChooseCategory(value: string) {
+    this.currentCategory = value;
+  }
+  setChooseCountry(value: string) {
+    this.currentCountry = value;
+  }
+  setChooseYears(value: string) {
+    this.currentYear = value;
   }
   setSearchData(value: string) {
     this.searchData = value;

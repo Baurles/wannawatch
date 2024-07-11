@@ -40,7 +40,7 @@ export const Films = observer(() => {
     return (
       <div
         id="viewH"
-        className="flex overflow-y-auto justify-start flex-wrap text-black  pt-2 pl-2 pr-2 scrollbar-hide mt-2 mb-2 w-full h-full border-black border-2 rounded-lg"
+        className="flex overflow-y-auto justify-center flex-wrap text-black  pt-2  scrollbar-hide mt-2 mb-2 w-full h-full border-black border-2 rounded-lg"
       >
         {Store.filmsArray.map((e, index) => (
           <div className="w-1/8 h-1/2" key={index}>

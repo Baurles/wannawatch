@@ -68,12 +68,22 @@ export const Category = observer(() => {
       ref={ref}
       className="cursor-pointer flex items-center  h-fit justify-center   border-black "
     >
-      <DropDown buttonId={buttonId} arrowId={arrowId} placeholder="Все жанры" />
+      <DropDown
+        buttonId={buttonId}
+        arrowId={arrowId}
+        placeholder={Store.currentCategory}
+      />
 
       <DropDownModal id={id}>
         <DropDownModalList>
           {Store.categories.map((e, index) => (
-            <DropDownModalButton key={e.id} buttonName={e.name} />
+            <DropDownModalButton
+              isClicked={() => {
+                Store.setChooseCategory(e.name);
+              }}
+              key={e.id}
+              buttonName={e.name}
+            />
           ))}
         </DropDownModalList>
       </DropDownModal>

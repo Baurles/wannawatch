@@ -68,12 +68,20 @@ export const Years = observer(() => {
       ref={ref}
       className="flex items-center cursor-pointer  h-full flex-col justify-center   border-black "
     >
-      <DropDown buttonId={buttonId} arrowId={arrowId} placeholder="Все годы" />
+      <DropDown
+        buttonId={buttonId}
+        arrowId={arrowId}
+        placeholder={Store.currentYear}
+      />
 
       <DropDownModal id={id}>
         <DropDownModalList>
           {Store.years.map((e, index) => (
-            <DropDownModalButton key={e.id} buttonName={e.name} />
+            <DropDownModalButton
+              isClicked={() => Store.setChooseYears(e.name)}
+              key={e.id}
+              buttonName={e.name}
+            />
           ))}
         </DropDownModalList>
       </DropDownModal>

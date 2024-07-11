@@ -1,9 +1,15 @@
 "use client";
 import { DropDownModalButtonUI } from "@/shared/buttons/dropdownModalButton/dropdownModalButton";
-
-export const DropDownModalButton = ({ buttonName }: { buttonName: string }) => {
+import { MouseEventHandler } from "react";
+export const DropDownModalButton = ({
+  buttonName,
+  isClicked,
+}: {
+  buttonName: string;
+  isClicked: MouseEventHandler;
+}) => {
   return (
-    <DropDownModalButtonUI>
+    <DropDownModalButtonUI isClicked={isClicked}>
       <p>{buttonName}</p>
     </DropDownModalButtonUI>
   );
