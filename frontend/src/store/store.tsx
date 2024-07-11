@@ -30,7 +30,7 @@ class Store {
 
   filmsScrollPositionStart = 0;
   filmsScrollPositionEnd = 20;
-
+  dark = false;
   constructor() {
     makeAutoObservable(this);
   }
@@ -84,6 +84,9 @@ class Store {
   }
   setYearsArray(value: FilterProps[]) {
     this.years = value;
+  }
+  setDark(value: boolean) {
+    this.dark = value;
   }
 
   setFilmsScrollPosition(value: number) {

@@ -30,8 +30,8 @@ export const Category = observer(() => {
             180,
             "inline",
             buttonId,
-            "black",
-            "white"
+            Store.dark ? "white" : "black",
+            Store.dark ? "black" : "white"
           );
           animate(sequence);
         } else {
@@ -43,8 +43,8 @@ export const Category = observer(() => {
             0,
             "none",
             buttonId,
-            "white",
-            "black"
+            Store.dark ? "black" : "white",
+            Store.dark ? "white" : "black"
           );
           animate(sequence);
         }
@@ -66,7 +66,7 @@ export const Category = observer(() => {
   return (
     <section
       ref={ref}
-      className="cursor-pointer flex items-center  h-fit justify-center   border-black "
+      className="cursor-pointer  dark:border-white flex items-center  h-fit justify-center   border-black "
     >
       <DropDown
         buttonId={buttonId}

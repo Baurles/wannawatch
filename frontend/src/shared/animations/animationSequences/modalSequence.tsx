@@ -2,8 +2,6 @@
 import MainStore from "@/store/store";
 import { AnimationSequence } from "framer-motion";
 
-const Store = MainStore;
-
 export const ModalSequence = (
   id: string,
   arrowId: string,

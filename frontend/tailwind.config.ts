@@ -9,6 +9,7 @@ const config: Config = {
     "./src/shared/**",
     "./src/page/**",
   ],
+  darkMode: "class",
   theme: {
     extend: {
       backgroundImage: {

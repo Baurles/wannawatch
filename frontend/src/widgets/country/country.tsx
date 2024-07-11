@@ -31,8 +31,8 @@ export const Country = observer(() => {
             180,
             "inline",
             buttonId,
-            "black",
-            "white"
+            Store.dark ? "white" : "black",
+            Store.dark ? "black" : "white"
           );
           animate(sequence);
         } else {
@@ -44,8 +44,8 @@ export const Country = observer(() => {
             0,
             "none",
             buttonId,
-            "white",
-            "black"
+            Store.dark ? "black" : "white",
+            Store.dark ? "white" : "black"
           );
           animate(sequence);
         }

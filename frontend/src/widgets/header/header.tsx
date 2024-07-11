@@ -1,3 +1,4 @@
+import { DarkModeSwitch } from "@/features/handleDarkModeSwitch";
 import { Git } from "@/shared/buttons/git";
 import { Telegram } from "@/shared/buttons/telegram";
 import { HeaderUI } from "@/shared/header";
@@ -8,13 +9,14 @@ export const Header = ({ children }: { children: React.ReactNode }) => {
   return (
     <>
       <HeaderUI>
-        <div className="flex justify-between items-center w-full">
+        <div className="flex dark:bg-black dark:text-white justify-between items-center w-full">
           <Logo />
 
           {children}
           <HeaderButtons>
-            <Git color="black" size={30} />
-            <Telegram color="black" size={30} />
+            <DarkModeSwitch />
+            <Git size={30} />
+            <Telegram size={30} />
           </HeaderButtons>
         </div>
       </HeaderUI>

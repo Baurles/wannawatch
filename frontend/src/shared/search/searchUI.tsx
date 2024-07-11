@@ -9,17 +9,16 @@ import MainStore from "@/store/store";
 import { useEffect, useRef } from "react";
 import { observer } from "mobx-react";
 
-
 export const SearchUI = observer(() => {
   const Store = MainStore;
   const ref = useRef<HTMLInputElement>(null);
 
-  const  handlePressEnter = (e:KeyboardEvent) =>{
-    if(e.code == "Enter"){
-      Store.setSearchData("Логика поиска")
+  const handlePressEnter = (e: KeyboardEvent) => {
+    if (e.code == "Enter") {
+      Store.setSearchData("Логика поиска");
     }
-  }
-  
+  };
+
   useEffect(() => {
     let handler = (e: MouseEvent) => {
       const target = e.target as HTMLElement;
@@ -33,13 +32,12 @@ export const SearchUI = observer(() => {
       }
     };
     document.addEventListener("mousedown", handler);
-    document.addEventListener("keydown",handlePressEnter)
+    document.addEventListener("keydown", handlePressEnter);
     return () => {
       document.removeEventListener("mousedown", handler);
-      document.removeEventListener("keydown",handlePressEnter)
+      document.removeEventListener("keydown", handlePressEnter);
     };
   }, []);
-
 
   const handleClick = (value: boolean) => {
     if (Store.searchSwitch) {
@@ -56,7 +54,7 @@ export const SearchUI = observer(() => {
       <motion.input
         ref={ref}
         initial={{ width: "25%" }}
-        className="border-black border-2 h-8 rounded-lg bg-white text-black p-2"
+        className="border-black border-2 dark:border-white dark:bg-black dark:text-white h-8 rounded-lg bg-white text-black p-2"
         placeholder="Найти фильм"
         type="text"
       />

@@ -1,13 +1,18 @@
-"use client"
+"use client";
 
-import MainStore from "@/store/store"
+import MainStore from "@/store/store";
 
-const Store = MainStore
+const Store = MainStore;
 
-export const Logo =() => {
-    return(
-        <>
-            <h1 onClick={()=>Store.setChooseFilm(false)} className="cursor-pointer text-black text-2xl font-bold">WannaWatch</h1>
-        </>
-    )
-}
+export const Logo = () => {
+  return (
+    <>
+      <h1
+        onClick={() => Store.setChooseFilm(false)}
+        className="cursor-pointer dark:text-white text-black text-2xl font-bold"
+      >
+        WannaWatch
+      </h1>
+    </>
+  );
+};
