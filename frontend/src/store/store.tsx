@@ -26,6 +26,7 @@ class Store {
   countries = [] as FilterProps[];
 
   filmsArray = [] as FilmProps[];
+  scrollByPixels = 0;
 
   filmsScrollPositionStart = 0;
   filmsScrollPositionEnd = 20;
@@ -60,6 +61,7 @@ class Store {
   }
   setCurrentFilmId(id: number) {
     this.currentFilmId = id;
+    console.log(id);
   }
   setCurrentFilm() {
     this.currentFilm = this.filmsArray[this.currentFilmId - 1];
@@ -73,9 +75,11 @@ class Store {
   setYearsArray(value: FilterProps[]) {
     this.years = value;
   }
+
   setFilmsScrollPosition(value: number) {
-    this.filmsScrollPositionStart = this.filmsScrollPositionStart + value;
-    this.filmsScrollPositionEnd = this.filmsScrollPositionEnd + value;
+    console.log(value);
+    this.filmsScrollPositionStart = this.filmsScrollPositionStart + value + 1;
+    this.filmsScrollPositionEnd = this.filmsScrollPositionEnd + value + 1;
   }
 }
 

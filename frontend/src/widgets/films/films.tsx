@@ -12,18 +12,29 @@ const Store = MainStore;
 
 export const Films = observer(() => {
   useEffect(() => {
-    (document.getElementById("viewH") as HTMLElement).addEventListener(
-      "scroll",
-      handleScrollFilms
-    );
-    return () =>
-      (document.getElementById("viewH") as HTMLElement).removeEventListener(
+    if ((document.getElementById("viewH") as HTMLElement) != null) {
+      (document.getElementById("viewH") as HTMLElement).addEventListener(
         "scroll",
         handleScrollFilms
       );
-  }, []);
+    }
 
-  handleFecthFilms(13);
+    return () => {
+      if ((document.getElementById("viewH") as HTMLElement) != null) {
+        (document.getElementById("viewH") as HTMLElement).removeEventListener(
+          "scroll",
+          handleScrollFilms
+        );
+      }
+    };
+  }, [Store.chooseFilm]);
+
+  useEffect(() => {
+    handleFecthFilms(
+      Store.filmsScrollPositionStart,
+      Store.filmsScrollPositionEnd
+    );
+  }, [Store.filmsScrollPositionStart]);
 
   if (!Store.chooseFilm && Store.filmsArray !== null) {
     return (
@@ -46,15 +57,19 @@ export const Films = observer(() => {
     return (
       <Cinema>
         <Recomendations>
-          {Store.filmsArray.map((e, index) => (
-            <div className="w-32 h-full" key={index}>
-              <Film
-                isClicked={() => Store.setCurrentFilmId(e.id)}
-                image={`${Store.filmsArray[index].ImgURL}`}
-                filmName={`${Store.filmsArray[index].name}`}
-              />
-            </div>
-          ))}
+          {Store.filmsArray.map((e, index) => {
+            if (index < 20) {
+              return (
+                <div className="w-1/5 h-full" key={index}>
+                  <Film
+                    isClicked={() => Store.setCurrentFilmId(e.id)}
+                    image={`${Store.filmsArray[index].ImgURL}`}
+                    filmName={`${Store.filmsArray[index].name}`}
+                  />
+                </div>
+              );
+            }
+          })}
         </Recomendations>
       </Cinema>
     );

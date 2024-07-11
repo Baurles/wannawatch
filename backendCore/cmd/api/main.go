@@ -28,7 +28,7 @@ func main(){
 	
 	router :=mux.NewRouter()
 	router.HandleFunc("/api/films", Films.GetFilms(filmsDB)).Methods("GET")
-	router.HandleFunc("/api/films/list/{rangeto}", Films.GetFilmsRange(filmsDB)).Methods("GET")
+	router.HandleFunc("/api/films/list/{rangefrom}_{rangeto}", Films.GetFilmsRange(filmsDB)).Methods("GET")
 	router.HandleFunc("/api/films", Films.CreateFilm(filmsDB)).Methods("POST")
 	router.HandleFunc("/api/films/{id}", Films.GetFilm(filmsDB)).Methods("GET")
 	router.HandleFunc("/api/films/{id}", Films.UpdateFilm(filmsDB)).Methods("PUT")

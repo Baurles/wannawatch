@@ -68,7 +68,7 @@ def dbConnection():
         conn = psycopg2.connect('postgres://admin:root@127.0.0.1:5433/postgres?sslmode=disable')
         cursor=conn.cursor()
         print('DB is connected')
-        id = 447302
+        id = 397667
         data=sendRequest(id)
         toSend = (data.name,data.description,data.image,data.aggregateRating.ratingValue,data.countryOfOrigin[0],data.datePublished)
         cursor.execute("INSERT INTO films (name,description,imgurl,rate,country,year) VALUES (%s,%s,%s,%s,%s,%s)",toSend)

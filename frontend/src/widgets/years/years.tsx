@@ -55,7 +55,7 @@ export const Years = observer(() => {
 
       <DropDownModal id={id}>
         <DropDownModalList>
-          {Store.categories.map((e, index) => (
+          {Store.years.map((e, index) => (
             <DropDownModalButton key={e.id} buttonName={e.name} />
           ))}
         </DropDownModalList>
