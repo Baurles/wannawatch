@@ -13,7 +13,7 @@ export const handleScrollFilms = () => {
     );
     if (
       (document.getElementById("viewH") as HTMLElement).scrollTop >
-      getHeight / 2
+      getHeight / 4
     ) {
       Store.setFilmsScrollPosition(20);
     }
