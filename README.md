@@ -3,4 +3,5 @@
 Фронт - Next.js,React,tailwind,mobX
 Бэк - основной сервер на golang
 Парсинг и ИИ - на питоне (bs4,selenium)
+БД-Postgre
 Проект в процессе
