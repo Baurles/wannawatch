@@ -43,7 +43,7 @@ export const Films = observer(() => {
         className="flex overflow-y-auto justify-start flex-wrap text-black  pt-2 pl-2 pr-2 scrollbar-hide mt-2 mb-2 w-full h-full border-black border-2 rounded-lg"
       >
         {Store.filmsArray.map((e, index) => (
-          <div className="w-1/6 h-1/2" key={index}>
+          <div className="w-1/8 h-1/2" key={index}>
             <Film
               isClicked={() => Store.setCurrentFilmId(e.id)}
               image={`${Store.filmsArray[index].ImgURL}`}
@@ -58,7 +58,7 @@ export const Films = observer(() => {
       <Cinema>
         <Recomendations>
           {Store.filmsArray.map((e, index) => {
-            if (index < 20) {
+            if (index < 15) {
               return (
                 <div className="w-1/5 h-full" key={index}>
                   <Film

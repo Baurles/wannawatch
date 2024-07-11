@@ -15,6 +15,7 @@ export const Years = observer(() => {
   const id = "years";
   const ref = useRef<HTMLInputElement>(null);
   const arrowId = "arrowYears";
+  const buttonId = "buttonYears";
   useEffect(() => {
     handleFetchYears();
     let handler = (e: MouseEvent) => {
@@ -23,12 +24,28 @@ export const Years = observer(() => {
       if (ref.current !== null) {
         if (ref.current.contains(target)) {
           handleClick(true);
-          let sequence = ModalSequence(id, arrowId, 180, "inline");
+          let sequence = ModalSequence(
+            id,
+            arrowId,
+            180,
+            "inline",
+            buttonId,
+            "black",
+            "white"
+          );
           animate(sequence);
         } else {
           ref.current.focus();
           handleClick(false);
-          let sequence = ModalSequence(id, arrowId, 0, "none");
+          let sequence = ModalSequence(
+            id,
+            arrowId,
+            0,
+            "none",
+            buttonId,
+            "white",
+            "black"
+          );
           animate(sequence);
         }
       }
@@ -51,7 +68,7 @@ export const Years = observer(() => {
       ref={ref}
       className="flex items-center cursor-pointer  h-full flex-col justify-center   border-black "
     >
-      <DropDown arrowId={arrowId} placeholder="Все годы" />
+      <DropDown buttonId={buttonId} arrowId={arrowId} placeholder="Все годы" />
 
       <DropDownModal id={id}>
         <DropDownModalList>

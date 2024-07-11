@@ -30,6 +30,7 @@ class Store {
 
   filmsScrollPositionStart = 0;
   filmsScrollPositionEnd = 20;
+
   constructor() {
     makeAutoObservable(this);
   }

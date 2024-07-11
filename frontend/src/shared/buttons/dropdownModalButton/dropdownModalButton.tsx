@@ -1,4 +1,5 @@
 "use client";
+import { motion } from "framer-motion";
 
 export const DropDownModalButtonUI = ({
   children,
@@ -6,8 +7,11 @@ export const DropDownModalButtonUI = ({
   children: React.ReactNode;
 }) => {
   return (
-    <div className="w-full h-1/4 rounded-lg text-black cursor-pointer border-2 border-black  flex justify-center items-center">
+    <motion.div
+      whileHover={{ background: "	#111111", color: "white" }}
+      className="w-full h-1/4 rounded-lg text-black cursor-pointer border-2 border-black  flex justify-center items-center"
+    >
       {children}
-    </div>
+    </motion.div>
   );
 };

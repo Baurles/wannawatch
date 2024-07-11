@@ -15,7 +15,7 @@ export const Category = observer(() => {
   const id = "category";
   const ref = useRef<HTMLInputElement>(null);
   const arrowId = "arrowCategory";
-
+  const buttonId = "buttonCategory";
   useEffect(() => {
     handleFetchCategories();
     let handler = (e: MouseEvent) => {
@@ -24,12 +24,28 @@ export const Category = observer(() => {
       if (ref.current !== null) {
         if (ref.current.contains(target)) {
           handleClick(true);
-          let sequence = ModalSequence(id, arrowId, 180, "inline");
+          let sequence = ModalSequence(
+            id,
+            arrowId,
+            180,
+            "inline",
+            buttonId,
+            "black",
+            "white"
+          );
           animate(sequence);
         } else {
           ref.current.focus();
           handleClick(false);
-          let sequence = ModalSequence(id, arrowId, 0, "none");
+          let sequence = ModalSequence(
+            id,
+            arrowId,
+            0,
+            "none",
+            buttonId,
+            "white",
+            "black"
+          );
           animate(sequence);
         }
       }
@@ -52,7 +68,7 @@ export const Category = observer(() => {
       ref={ref}
       className="cursor-pointer flex items-center  h-fit justify-center   border-black "
     >
-      <DropDown arrowId={arrowId} placeholder="Все жанры" />
+      <DropDown buttonId={buttonId} arrowId={arrowId} placeholder="Все жанры" />
 
       <DropDownModal id={id}>
         <DropDownModalList>
