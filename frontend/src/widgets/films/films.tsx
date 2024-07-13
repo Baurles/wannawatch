@@ -6,7 +6,7 @@ import { handleScrollFilms } from "@/features/handleScrollFilms/handleScrollFilm
 import { Recomendations } from "@/shared/recomendations/recomendations";
 import MainStore from "@/store/store";
 import { observer } from "mobx-react";
-import { useEffect } from "react";
+import { useEffect, useLayoutEffect } from "react";
 
 const Store = MainStore;
 
@@ -29,12 +29,9 @@ export const Films = observer(() => {
     };
   }, [Store.chooseFilm]);
 
-  useEffect(() => {
-    handleFecthFilms(
-      Store.filmsScrollPositionStart,
-      Store.filmsScrollPositionEnd
-    );
-  }, [Store.filmsScrollPositionStart]);
+  useLayoutEffect(() => {
+    handleFecthFilms(0, 20);
+  }, []);
 
   if (!Store.chooseFilm && Store.filmsArray !== null) {
     return (

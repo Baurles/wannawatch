@@ -2,6 +2,7 @@
 
 import { observer } from "mobx-react";
 import { IoMdArrowDropdown } from "react-icons/io";
+import { motion } from "framer-motion";
 
 export const DropDown = observer(
   ({
@@ -14,7 +15,7 @@ export const DropDown = observer(
     buttonId: string;
   }) => {
     return (
-      <div className="h-fit w-36">
+      <motion.div whileHover={{ scale: 1.05 }} className="h-fit w-36">
         <div
           id={buttonId}
           className="p-2 cursor-pointer h-8 dark:text-white dark:bg-black dark:border-white border-2  border-black text-black flex  justify-center items-center bg-white rounded-lg"
@@ -22,7 +23,7 @@ export const DropDown = observer(
           <IoMdArrowDropdown id={arrowId} />
           {placeholder}
         </div>
-      </div>
+      </motion.div>
     );
   }
 );

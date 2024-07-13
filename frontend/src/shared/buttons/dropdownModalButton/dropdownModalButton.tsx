@@ -20,6 +20,7 @@ export const DropDownModalButtonUI = observer(
         whileHover={{
           background: Store.dark ? "white" : "black",
           color: Store.dark ? "black" : "white",
+          scale: 1.05,
         }}
         className="w-full h-1/4 rounded-lg  dark:text-white dark:border-white text-black cursor-pointer border-2 border-black  flex justify-center items-center"
       >

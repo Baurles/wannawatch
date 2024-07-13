@@ -1,6 +1,7 @@
 "use client";
 
 import MainStore from "@/store/store";
+import { handleFecthFilms } from "../fetchFilms";
 
 const Store = MainStore;
 
@@ -12,10 +13,16 @@ export const handleScrollFilms = () => {
       ).height.slice(0, -2)
     );
     if (
-      (document.getElementById("viewH") as HTMLElement).scrollTop >
-      getHeight / 50
+      (document.getElementById("viewH") as HTMLElement).scrollHeight -
+        ((document.getElementById("viewH") as HTMLElement).scrollTop +
+          getHeight) <
+      200
     ) {
       Store.setFilmsScrollPosition(20);
+      handleFecthFilms(
+        Store.filmsScrollPositionStart,
+        Store.filmsScrollPositionEnd
+      );
     }
   }
 };
