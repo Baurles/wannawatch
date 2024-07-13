@@ -7,6 +7,7 @@ import { Category } from "@/widgets/category";
 import { Country } from "@/widgets/country";
 import { Years } from "@/widgets/years";
 import { Search } from "@/widgets/search";
+import { SearchByFilter } from "@/widgets/searchByFilter";
 
 export const metadata: Metadata = {
   title: "WannaWatch",

@@ -9,6 +9,7 @@ import { animate } from "framer-motion";
 import { observer } from "mobx-react";
 import { useEffect, useRef } from "react";
 import { handleFetchCategories } from "@/features/fetchFilters";
+import { handleFilterButtons } from "@/features/handleFilterButtons";
 
 export const Category = observer(() => {
   const Store = MainStore;
@@ -78,9 +79,7 @@ export const Category = observer(() => {
         <DropDownModalList>
           {Store.categories.map((e, index) => (
             <DropDownModalButton
-              isClicked={() => {
-                Store.setChooseCategory(e.name);
-              }}
+              isClicked={() => handleFilterButtons(e, "category")}
               key={e.id}
               buttonName={e.name}
             />

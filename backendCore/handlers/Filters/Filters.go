@@ -1,6 +1,7 @@
 package Filters
 
 import (
+	"api/handlers/UrlDecoder"
 	"api/types"
 	"database/sql"
 	"encoding/json"
@@ -89,5 +90,36 @@ func DeleteFilters(db *sql.DB,variants string) http.HandlerFunc{
 		}
 
 		json.NewEncoder(w).Encode(variants+" deleted")
+	}
+}
+
+func GetCurrentFilter(db *sql.DB,selectType string) http.HandlerFunc{
+	return func(w http.ResponseWriter, r *http.Request){
+		vars :=mux.Vars(r)
+		current := vars[selectType]
+		decoded :=UrlDecoder.UrlDecoder(current)
+	
+		rows, err := db.Query("SELECT * FROM films WHERE "+selectType+" = $1",decoded)
+
+		if err != nil {
+			log.Fatal(err)
+		}
+		defer rows.Close()
+
+		films := []types.Film{}
+		for rows.Next() {
+			var f types.Film
+
+			if err := rows.Scan(&f.Id, &f.Name, &f.Description,&f.ImgURL,&f.Rate,&f.Country,&f.Year); err != nil {
+				log.Fatal(err)
+			}
+			films = append(films, f)
+		}
+
+		if err := rows.Err(); err != nil {
+			log.Fatal(err)
+		}
+
+		json.NewEncoder(w).Encode(films)
 	}
 }

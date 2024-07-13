@@ -31,6 +31,8 @@ class Store {
   filmsScrollPositionStart = 0;
   filmsScrollPositionEnd = 20;
   dark = false;
+
+  isFilmPlayerLoading = true;
   constructor() {
     makeAutoObservable(this);
   }
@@ -69,6 +71,10 @@ class Store {
   setFilmsArray(value: FilmProps[]) {
     this.filmsArray = this.filmsArray.concat(value);
   }
+  setFilteredArray(value: FilmProps[]) {
+    this.filmsArray = value;
+    console.log(value);
+  }
   setCurrentFilmId(id: number) {
     this.currentFilmId = id;
     console.log(id);
@@ -93,6 +99,9 @@ class Store {
     console.log(value);
     this.filmsScrollPositionStart = this.filmsScrollPositionStart + value + 1;
     this.filmsScrollPositionEnd = this.filmsScrollPositionEnd + value + 1;
+  }
+  setIsFilmPlayerLoading(value: boolean) {
+    this.isFilmPlayerLoading = value;
   }
 }
 

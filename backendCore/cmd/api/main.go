@@ -38,16 +38,20 @@ func main(){
 	router.HandleFunc("/api/films/filters/category",Filters.CreateFilters(filmsDB,"category")).Methods("POST")
 	router.HandleFunc("/api/films/filters/category",Filters.UpdateFilters(filmsDB,"category")).Methods("PUT")
 	router.HandleFunc("/api/films/filters/category",Filters.DeleteFilters(filmsDB,"category")).Methods("DELETE")
+	router.HandleFunc("/api/films/filters/category/{category}",Filters.GetCurrentFilter(filmsDB,"category")).Methods("GET")
+
 
 	router.HandleFunc("/api/films/filters/country",Filters.GetFilters(filmsDB,"country")).Methods("GET")
 	router.HandleFunc("/api/films/filters/country",Filters.CreateFilters(filmsDB,"country")).Methods("POST")
 	router.HandleFunc("/api/films/filters/country",Filters.UpdateFilters(filmsDB,"country")).Methods("PUT")
 	router.HandleFunc("/api/films/filters/country",Filters.DeleteFilters(filmsDB,"country")).Methods("DELETE")
+	router.HandleFunc("/api/films/filters/country/{country}",Filters.GetCurrentFilter(filmsDB,"country")).Methods("GET")
 
 	router.HandleFunc("/api/films/filters/years",Filters.GetFilters(filmsDB,"years")).Methods("GET")
 	router.HandleFunc("/api/films/filters/years",Filters.CreateFilters(filmsDB,"years")).Methods("POST")
 	router.HandleFunc("/api/films/filters/years",Filters.UpdateFilters(filmsDB,"years")).Methods("PUT")
 	router.HandleFunc("/api/films/filters/years",Filters.DeleteFilters(filmsDB,"years")).Methods("DELETE")
+	router.HandleFunc("/api/films/filters/years/{years}",Filters.GetCurrentFilter(filmsDB,"years")).Methods("GET")
 
 	enhancedRouter :=CORS.EnableCORS(Middleware.JsonContentTypeMiddleware(router))
 	log.Fatal(http.ListenAndServe(":8000",enhancedRouter))
