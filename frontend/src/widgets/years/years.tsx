@@ -1,7 +1,5 @@
 "use client";
 import { ModalSequence } from "@/shared/animations/animationSequences/modalSequence";
-import { DropDown } from "@/shared/buttons/dropdown";
-import { DropDownModalButton } from "@/entities/dropdownModalButton";
 import { DropDownModal } from "@/shared/dropdownModal";
 import { DropDownModalList } from "@/shared/dropdownModalList";
 import MainStore from "@/store/store";
@@ -9,6 +7,7 @@ import { animate } from "framer-motion";
 import { observer } from "mobx-react";
 import { useEffect, useRef } from "react";
 import { handleFetchYears } from "@/features/fetchFilters";
+import { SquareButton } from "@/shared/buttons/squareButton";
 
 export const Years = observer(() => {
   const Store = MainStore;
@@ -68,7 +67,8 @@ export const Years = observer(() => {
       ref={ref}
       className="flex items-center cursor-pointer  h-full flex-col justify-center   border-black "
     >
-      <DropDown
+      <SquareButton
+        variant="main"
         buttonId={buttonId}
         arrowId={arrowId}
         placeholder={Store.currentYear}
@@ -77,8 +77,9 @@ export const Years = observer(() => {
       <DropDownModal id={id}>
         <DropDownModalList>
           {Store.years.map((e, index) => (
-            <DropDownModalButton
-              isClicked={() => Store.setChooseYears(e.name)}
+            <SquareButton
+              variant="inner"
+              onClick={() => Store.setChooseYears(e.name)}
               key={e.id}
               buttonName={e.name}
             />

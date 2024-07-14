@@ -18,11 +18,12 @@ export const handleScrollFilms = () => {
           getHeight) <
       200
     ) {
-      Store.setFilmsScrollPosition(20);
+      Store.setFilmsScrollPosition(16);
       handleFecthFilms(
         Store.filmsScrollPositionStart,
         Store.filmsScrollPositionEnd
       );
+      console.log(Store.filmsArray);
     }
   }
 };

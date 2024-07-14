@@ -1,7 +1,5 @@
 "use client";
 import { ModalSequence } from "@/shared/animations/animationSequences/modalSequence";
-import { DropDown } from "@/shared/buttons/dropdown";
-import { DropDownModalButton } from "@/entities/dropdownModalButton";
 import { DropDownModal } from "@/shared/dropdownModal";
 import { DropDownModalList } from "@/shared/dropdownModalList";
 import MainStore from "@/store/store";
@@ -10,6 +8,7 @@ import { observer } from "mobx-react";
 import { useEffect, useRef } from "react";
 import { handleFetchCountries } from "@/features/fetchFilters";
 import { handleFilterButtons } from "@/features/handleFilterButtons";
+import { SquareButton } from "@/shared/buttons/squareButton";
 
 export const Country = observer(() => {
   const Store = MainStore;
@@ -70,19 +69,19 @@ export const Country = observer(() => {
       ref={ref}
       className="flex items-center cursor-pointer h-full flex-col justify-center   border-black "
     >
-      <button>
-        <DropDown
-          buttonId={buttonId}
-          arrowId={arrowId}
-          placeholder={Store.currentCountry}
-        />
-      </button>
+      <SquareButton
+        variant="main"
+        buttonId={buttonId}
+        arrowId={arrowId}
+        placeholder={Store.currentCountry}
+      />
 
       <DropDownModal id={id}>
         <DropDownModalList>
           {Store.countries.map((e, index) => (
-            <DropDownModalButton
-              isClicked={() => handleFilterButtons(e, "country")}
+            <SquareButton
+              variant="inner"
+              onClick={() => handleFilterButtons(e, "country")}
               key={e.id}
               buttonName={e.name}
             />

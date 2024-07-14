@@ -2,6 +2,7 @@
 import { Cinema } from "@/entities/cinema";
 import { Film } from "@/entities/film";
 import { handleFecthFilms } from "@/features/fetchFilms";
+import { handleChooseFilm } from "@/features/handleChooseFilm/handleChooseFilm";
 import { handleScrollFilms } from "@/features/handleScrollFilms/handleScrollFilms";
 import { Recomendations } from "@/shared/recomendations/recomendations";
 import MainStore from "@/store/store";
@@ -42,7 +43,7 @@ export const Films = observer(() => {
         {Store.filmsArray.map((e, index) => (
           <div className="w-1/8 h-1/2" key={index}>
             <Film
-              isClicked={() => Store.setCurrentFilmId(e.id)}
+              onClick={() => handleChooseFilm(e.id)}
               image={`${Store.filmsArray[index].ImgURL}`}
               filmName={`${Store.filmsArray[index].name}`}
             />
@@ -59,7 +60,7 @@ export const Films = observer(() => {
               return (
                 <div className="w-1/5 h-full" key={index}>
                   <Film
-                    isClicked={() => Store.setCurrentFilmId(e.id)}
+                    onClick={() => handleChooseFilm(e.id)}
                     image={`${Store.filmsArray[index].ImgURL}`}
                     filmName={`${Store.filmsArray[index].name}`}
                   />

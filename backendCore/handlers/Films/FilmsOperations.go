@@ -24,7 +24,7 @@ func GetFilms(db *sql.DB) http.HandlerFunc {
 		for rows.Next() {
 			var f types.Film
 
-			if err := rows.Scan(&f.Id, &f.Name, &f.Description,&f.ImgURL,&f.Rate,&f.Country,&f.Year); err != nil {
+			if err := rows.Scan(&f.Id, &f.Name, &f.Description,&f.ImgURL,&f.Rate,&f.Country,&f.Year,&f.Genre); err != nil {
 				log.Fatal(err)
 			}
 			films = append(films, f)
@@ -43,7 +43,7 @@ func CreateFilm(db *sql.DB) http.HandlerFunc {
 		var f types.Film
 		json.NewDecoder(r.Body).Decode(&f)
 		
-		err :=db.QueryRow("INSERT INTO films (name,description,imgURL,rate,country,year) VALUES ($1, $2,$3,$4,$5,$6) RETURNING id",f.Name,f.Description,f.ImgURL,f.Rate,f.Country,f.Year).Scan(&f.Id)
+		err :=db.QueryRow("INSERT INTO films (name,description,imgURL,rate,country,year,genre) VALUES ($1, $2,$3,$4,$5,$6,&7) RETURNING id",f.Name,f.Description,f.ImgURL,f.Rate,f.Country,f.Year,f.Genre).Scan(&f.Id)
 		if err !=nil{
 			log.Fatal(err)
 		}
@@ -58,7 +58,7 @@ func GetFilm(db *sql.DB) http.HandlerFunc {
 
 		var f types.Film
 		
-		err := db.QueryRow("SELECT * FROM films WHERE id = $1",id).Scan(&f.Id,&f.Name,&f.Description,&f.ImgURL,&f.Rate,&f.Country,&f.Year)
+		err := db.QueryRow("SELECT * FROM films WHERE id = $1",id).Scan(&f.Id,&f.Name,&f.Description,&f.ImgURL,&f.Rate,&f.Country,&f.Year,&f.Genre)
 		if err !=nil{
 			w.WriteHeader(http.StatusNotFound)
 			return
@@ -83,7 +83,7 @@ func GetFilmsRange(db *sql.DB) http.HandlerFunc {
 		for rows.Next() {
 			var f types.Film
 
-			if err := rows.Scan(&f.Id, &f.Name, &f.Description,&f.ImgURL,&f.Rate,&f.Country,&f.Year); err != nil {
+			if err := rows.Scan(&f.Id, &f.Name, &f.Description,&f.ImgURL,&f.Rate,&f.Country,&f.Year,&f.Genre); err != nil {
 				log.Fatal(err)
 			}
 			films = append(films, f)
@@ -105,14 +105,14 @@ func UpdateFilm(db *sql.DB) http.HandlerFunc {
 		vars :=mux.Vars(r)
 		id :=vars["id"]
 
-		_,err := db.Exec("UPDATE films SET name = $1, description = $2 imgURL = $3 rate = $4 country = $5 year = $6 WHERE id = $7",f.Name,f.Description,f.ImgURL,f.Rate,f.Country,f.Year,f.Id)
+		_,err := db.Exec("UPDATE films SET name = $1, description = $2 imgURL = $3 rate = $4 country = $5 year = $6 genre = $7 WHERE id = $8",f.Name,f.Description,f.ImgURL,f.Rate,f.Country,f.Year,f.Genre,f.Id)
 		
 		if err !=nil{
 			log.Fatal(err)
 		}
 		
 		var updateFilm types.Film
-		err = db.QueryRow("SELECT id, name, description, imgURL, rate, country, year FROM films WHERE id = $1", id).Scan(&updateFilm.Id,&updateFilm.Name,&updateFilm.Description,&updateFilm.ImgURL,&updateFilm.Rate,&updateFilm.Country,&updateFilm.Year)
+		err = db.QueryRow("SELECT id, name, description, imgURL, rate, country, year, genre FROM films WHERE id = $1", id).Scan(&updateFilm.Id,&updateFilm.Name,&updateFilm.Description,&updateFilm.ImgURL,&updateFilm.Rate,&updateFilm.Country,&updateFilm.Year,&updateFilm.Genre)
 		
 		if err !=nil{
 			log.Fatal(err)
@@ -128,7 +128,7 @@ func DeleteFilm(db *sql.DB) http.HandlerFunc{
 		id := vars["id"]
 
 		var f types.Film
-		err :=db.QueryRow("SELECT * FROM films WHERE id = $1", id).Scan(&f.Id, &f.Name, &f.Description,&f.ImgURL,&f.Rate,&f.Country,&f.Year)
+		err :=db.QueryRow("SELECT * FROM films WHERE id = $1", id).Scan(&f.Id, &f.Name, &f.Description,&f.ImgURL,&f.Rate,&f.Country,&f.Year,&f.Genre)
 
 		if err != nil{
 			w.WriteHeader(http.StatusNotFound)

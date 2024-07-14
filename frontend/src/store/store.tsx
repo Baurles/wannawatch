@@ -29,7 +29,7 @@ class Store {
   scrollByPixels = 0;
 
   filmsScrollPositionStart = 0;
-  filmsScrollPositionEnd = 20;
+  filmsScrollPositionEnd = 16;
   dark = false;
 
   isFilmPlayerLoading = true;
@@ -77,7 +77,6 @@ class Store {
   }
   setCurrentFilmId(id: number) {
     this.currentFilmId = id;
-    console.log(id);
   }
   setCurrentFilm() {
     this.currentFilm = this.filmsArray[this.currentFilmId - 1];
@@ -96,7 +95,6 @@ class Store {
   }
 
   setFilmsScrollPosition(value: number) {
-    console.log(value);
     this.filmsScrollPositionStart = this.filmsScrollPositionStart + value + 1;
     this.filmsScrollPositionEnd = this.filmsScrollPositionEnd + value + 1;
   }

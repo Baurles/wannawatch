@@ -1,19 +1,13 @@
+import { handleChooseFilm } from "@/features/handleChooseFilm/handleChooseFilm";
 import { FilmCard } from "@/shared/filmCard";
+import { FilmInListProps } from "@/shared/types/types";
 import Image from "next/image";
-import { MouseEventHandler } from "react";
 
-export const Film = ({
-  image,
-  filmName,
-  isClicked,
-}: {
-  image: string;
-  filmName: string;
-  isClicked: MouseEventHandler;
-}) => {
+export const Film = (props: FilmInListProps) => {
+  const { image, filmName, ...restProps } = props;
   return (
-    <FilmCard>
-      <Image src={image} onClick={isClicked} layout="fill" alt={filmName} />
+    <FilmCard {...restProps}>
+      <Image src={image} layout="fill" alt={filmName} />
     </FilmCard>
   );
 };

@@ -14,6 +14,7 @@ type Film struct {
 	Rate        string `json:"rate"`
 	Country     string `json:"country"`
 	Year        string `json:"year"`
+	Genre       string `json:genre`
 }
 
 type Filter struct {

@@ -18,7 +18,7 @@ func Connect(db *sql.DB, err error, dbType string) {
 	}
 
 	if dbType == "films"{
-		_,err = db.Exec("CREATE TABLE IF NOT EXISTS films (id SERIAL PRIMARY KEY, name TEXT, description TEXT, imgUrl TEXT, rate TEXT, country TEXT,year TEXT)")
+		_,err = db.Exec("CREATE TABLE IF NOT EXISTS films (id SERIAL PRIMARY KEY, name TEXT, description TEXT, imgUrl TEXT, rate TEXT, country TEXT,year TEXT,genre TEXT)")
 		if err !=nil{
 			log.Fatal(err)
 		}

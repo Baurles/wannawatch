@@ -1,7 +1,5 @@
 "use client";
 import { ModalSequence } from "@/shared/animations/animationSequences/modalSequence";
-import { DropDown } from "@/shared/buttons/dropdown";
-import { DropDownModalButton } from "@/entities/dropdownModalButton";
 import { DropDownModal } from "@/shared/dropdownModal";
 import { DropDownModalList } from "@/shared/dropdownModalList";
 import MainStore from "@/store/store";
@@ -10,6 +8,7 @@ import { observer } from "mobx-react";
 import { useEffect, useRef } from "react";
 import { handleFetchCategories } from "@/features/fetchFilters";
 import { handleFilterButtons } from "@/features/handleFilterButtons";
+import { SquareButton } from "@/shared/buttons/squareButton";
 
 export const Category = observer(() => {
   const Store = MainStore;
@@ -69,7 +68,8 @@ export const Category = observer(() => {
       ref={ref}
       className="cursor-pointer  dark:border-white flex items-center  h-fit justify-center   border-black "
     >
-      <DropDown
+      <SquareButton
+        variant="main"
         buttonId={buttonId}
         arrowId={arrowId}
         placeholder={Store.currentCategory}
@@ -78,8 +78,9 @@ export const Category = observer(() => {
       <DropDownModal id={id}>
         <DropDownModalList>
           {Store.categories.map((e, index) => (
-            <DropDownModalButton
-              isClicked={() => handleFilterButtons(e, "category")}
+            <SquareButton
+              variant="inner"
+              onClick={() => handleFilterButtons(e, "category")}
               key={e.id}
               buttonName={e.name}
             />

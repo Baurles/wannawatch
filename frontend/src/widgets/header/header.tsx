@@ -1,6 +1,5 @@
 import { DarkModeSwitch } from "@/features/handleDarkModeSwitch";
-import { Git } from "@/shared/buttons/git";
-import { Telegram } from "@/shared/buttons/telegram";
+import { LinkButton } from "@/shared/buttons/linkButton";
 import { HeaderUI } from "@/shared/header";
 import { HeaderButtons } from "@/shared/headerButtons";
 import { Logo } from "@/shared/logo";
@@ -15,8 +14,8 @@ export const Header = ({ children }: { children: React.ReactNode }) => {
           {children}
           <HeaderButtons>
             <DarkModeSwitch />
-            <Git size={30} />
-            <Telegram size={30} />
+            <LinkButton size={30} variant="Git" />
+            <LinkButton size={30} variant="Telegram" />
           </HeaderButtons>
         </div>
       </HeaderUI>

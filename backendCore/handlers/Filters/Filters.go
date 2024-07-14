@@ -110,7 +110,7 @@ func GetCurrentFilter(db *sql.DB,selectType string) http.HandlerFunc{
 		for rows.Next() {
 			var f types.Film
 
-			if err := rows.Scan(&f.Id, &f.Name, &f.Description,&f.ImgURL,&f.Rate,&f.Country,&f.Year); err != nil {
+			if err := rows.Scan(&f.Id, &f.Name, &f.Description,&f.ImgURL,&f.Rate,&f.Country,&f.Year,&f.Genre); err != nil {
 				log.Fatal(err)
 			}
 			films = append(films, f)

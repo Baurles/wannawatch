@@ -1,5 +1,5 @@
 "use client";
-import { DarkModeSwitchUI } from "@/shared/darkModeSwitchUI";
+import { DarkModeSwitcher } from "@/shared/buttons/darkModeSwitcher";
 import MainStore from "@/store/store";
 
 export const handleDarkModeSwitch = () => {
@@ -12,7 +12,5 @@ export const handleDarkModeSwitch = () => {
 const Store = MainStore;
 
 export const DarkModeSwitch = () => {
-  return (
-    <DarkModeSwitchUI isClicked={() => handleDarkModeSwitch()} size={30} />
-  );
+  return <DarkModeSwitcher onClick={() => handleDarkModeSwitch()} size={30} />;
 };
