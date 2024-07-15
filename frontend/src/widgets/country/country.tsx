@@ -5,10 +5,15 @@ import { DropDownModalList } from "@/shared/dropdownModalList";
 import MainStore from "@/store/store";
 import { animate } from "framer-motion";
 import { observer } from "mobx-react";
-import { useEffect, useRef } from "react";
+import { lazy, Suspense, useEffect, useRef } from "react";
 import { handleFetchCountries } from "@/features/fetchFilters";
 import { handleFilterButtons } from "@/features/handleFilterButtons";
-import { SquareButton } from "@/shared/buttons/squareButton";
+import SquareButton from "@/shared/buttons/squareButton";
+import SuspensePage from "@/shared/suspencePage";
+
+const LazySquareButton = lazy(
+  () => import("../../shared/buttons/squareButton/index")
+);
 
 export const Country = observer(() => {
   const Store = MainStore;
@@ -79,12 +84,14 @@ export const Country = observer(() => {
       <DropDownModal id={id}>
         <DropDownModalList>
           {Store.countries.map((e, index) => (
-            <SquareButton
-              variant="inner"
-              onClick={() => handleFilterButtons(e, "country")}
-              key={e.id}
-              buttonName={e.name}
-            />
+            <Suspense fallback={<SuspensePage />} key={e.id}>
+              <LazySquareButton
+                variant="inner"
+                onClick={() => handleFilterButtons(e, "country")}
+                key={e.id}
+                buttonName={e.name}
+              />
+            </Suspense>
           ))}
         </DropDownModalList>
       </DropDownModal>

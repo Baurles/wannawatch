@@ -1,5 +1,4 @@
 "use client";
-import { Cinema } from "@/entities/cinema";
 import { Film } from "@/entities/film";
 import { handleFecthFilms } from "@/features/fetchFilms";
 import { handleChooseFilm } from "@/features/handleChooseFilm/handleChooseFilm";
@@ -7,9 +6,12 @@ import { handleScrollFilms } from "@/features/handleScrollFilms/handleScrollFilm
 import { Recomendations } from "@/shared/recomendations/recomendations";
 import MainStore from "@/store/store";
 import { observer } from "mobx-react";
-import { useEffect, useLayoutEffect } from "react";
+import { lazy, Suspense, useEffect, useLayoutEffect } from "react";
+import SuspensePage from "@/shared/suspencePage";
 
 const Store = MainStore;
+
+const LazyCinema = lazy(() => import("../../entities/cinema/index"));
 
 export const Films = observer(() => {
   useEffect(() => {
@@ -53,23 +55,25 @@ export const Films = observer(() => {
     );
   } else {
     return (
-      <Cinema>
-        <Recomendations>
-          {Store.filmsArray.map((e, index) => {
-            if (index < 15) {
-              return (
-                <div className="w-1/5 h-full" key={index}>
-                  <Film
-                    onClick={() => handleChooseFilm(e.id)}
-                    image={`${Store.filmsArray[index].ImgURL}`}
-                    filmName={`${Store.filmsArray[index].name}`}
-                  />
-                </div>
-              );
-            }
-          })}
-        </Recomendations>
-      </Cinema>
+      <Suspense fallback={<SuspensePage />}>
+        <LazyCinema>
+          <Recomendations>
+            {Store.filmsArray.map((e, index) => {
+              if (index < 15) {
+                return (
+                  <div className="w-1/5 h-full" key={index}>
+                    <Film
+                      onClick={() => handleChooseFilm(e.id)}
+                      image={`${Store.filmsArray[index].ImgURL}`}
+                      filmName={`${Store.filmsArray[index].name}`}
+                    />
+                  </div>
+                );
+              }
+            })}
+          </Recomendations>
+        </LazyCinema>
+      </Suspense>
     );
   }
 });

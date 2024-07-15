@@ -5,9 +5,14 @@ import { DropDownModalList } from "@/shared/dropdownModalList";
 import MainStore from "@/store/store";
 import { animate } from "framer-motion";
 import { observer } from "mobx-react";
-import { useEffect, useRef } from "react";
+import { lazy, Suspense, useEffect, useRef } from "react";
 import { handleFetchYears } from "@/features/fetchFilters";
-import { SquareButton } from "@/shared/buttons/squareButton";
+import SquareButton from "@/shared/buttons/squareButton";
+import SuspensePage from "@/shared/suspencePage";
+
+const LazySquareButton = lazy(
+  () => import("../../shared/buttons/squareButton/index")
+);
 
 export const Years = observer(() => {
   const Store = MainStore;
@@ -77,12 +82,14 @@ export const Years = observer(() => {
       <DropDownModal id={id}>
         <DropDownModalList>
           {Store.years.map((e, index) => (
-            <SquareButton
-              variant="inner"
-              onClick={() => Store.setChooseYears(e.name)}
-              key={e.id}
-              buttonName={e.name}
-            />
+            <Suspense key={e.id} fallback={<SuspensePage />}>
+              <LazySquareButton
+                variant="inner"
+                onClick={() => Store.setChooseYears(e.name)}
+                key={e.id}
+                buttonName={e.name}
+              />
+            </Suspense>
           ))}
         </DropDownModalList>
       </DropDownModal>

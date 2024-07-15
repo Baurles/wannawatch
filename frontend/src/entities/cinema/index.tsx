@@ -1,1 +1,2 @@
-export { Cinema } from "./cinema";
+import { Cinema } from "./cinema";
+export default Cinema;

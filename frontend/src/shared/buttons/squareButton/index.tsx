@@ -1,1 +1,3 @@
-export { SquareButton } from "./squareButton";
+import { SquareButton } from "./squareButton";
+
+export default SquareButton;
